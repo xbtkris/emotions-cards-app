@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e·motion | Draw Your Morning Movement Card</title>
+    <meta name="description" content="Draw a card. Move for 2 minutes. Reset your nervous system.">
+    <meta property="og:title" content="e·motion | Draw Your Morning Movement Card">
+    <meta property="og:description" content="A 2-minute nervous system reset. Draw a card, do the practice.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://cards.tryemotion.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: #F5F1E8;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .logo {
+            margin-bottom: 6px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 48px;
+            width: auto;
+        }
+
+        .tagline {
+            font-size: 11px;
+            color: #aaa;
+            margin-bottom: 40px;
+            font-weight: 400;
+            letter-spacing: 4px;
+            text-transform: lowercase;
+        }
+
+        .card-display {
+            background: white;
+            border-radius: 24px;
+            padding: 44px 32px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+            margin-bottom: 28px;
+            min-height: 320px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .card-display.drawing {
+            transform: scale(0.97);
+            opacity: 0.6;
+        }
+
+        .prompt-text {
+            font-size: 18px;
+            color: #888;
+            line-height: 2;
+            font-weight: 400;
+        }
+
+        .prompt-text span {
+            display: block;
+        }
+
+        .card-category {
+            font-size: 10px;
+            color: #7A8B7A;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 16px;
+            font-weight: 600;
+        }
+
+        .card-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 34px;
+            font-weight: 500;
+            color: #C4907E;
+            margin-bottom: 24px;
+            letter-spacing: 1px;
+        }
+
+        .card-instruction {
+            font-size: 15px;
+            color: #4A4A4A;
+            line-height: 1.9;
+            text-align: left;
+        }
+
+        .card-instruction strong {
+            color: #7A8B7A;
+            font-weight: 600;
+        }
+
+        .draw-button {
+            background: #C4907E;
+            color: white;
+            border: none;
+            padding: 18px 52px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(196, 144, 126, 0.3);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .draw-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 28px rgba(196, 144, 126, 0.4);
+            background: #B8846F;
+        }
+
+        .draw-button:active {
+            transform: translateY(0);
+        }
+
+        .draw-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .footer {
+            margin-top: 44px;
+            font-size: 11px;
+            color: #ccc;
+            letter-spacing: 1px;
+        }
+
+        .footer a {
+            color: #ccc;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer a:hover {
+            color: #C4907E;
+        }
+
+        .divider {
+            width: 40px;
+            height: 1px;
+            background: #E8E4DB;
+            margin: 0 auto 24px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 16px;
+            }
+
+            .logo img {
+                height: 40px;
+            }
+            
+            .card-display {
+                padding: 32px 24px;
+                min-height: 280px;
+                border-radius: 20px;
+            }
+            
+            .card-title {
+                font-size: 28px;
+            }
+            
+            .card-instruction {
+                font-size: 14px;
+                line-height: 1.85;
+            }
+            
+            .draw-button {
+                padding: 16px 44px;
+                font-size: 12px;
+            }
+
+            .prompt-text {
+                font-size: 16px;
+                line-height: 1.9;
+            }
+
+            .tagline {
+                margin-bottom: 32px;
+                font-size: 10px;
+                letter-spacing: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="https://i.imgur.com/PLACEHOLDER.png" alt="e·motion" id="logoImg">
+        </div>
+        <div class="tagline">energy in motion</div>
+        
+        <div class="card-display" id="cardDisplay">
+            <p class="prompt-text">
+                <span>Draw a card.</span>
+                <span>Move for 2 minutes.</span>
+                <span>Feel the shift.</span>
+            </p>
+        </div>
+        
+        <button class="draw-button" id="drawButton" onclick="drawCard()">
+            Draw Card
+        </button>
+
+        <div class="footer">
+            <a href="https://tryemotion.com" target="_blank">tryemotion.com</a>
+        </div>
+    </div>
+
+    <script>
+        const cards = [
+            {
+                title: "Body Shaking",
+                instruction: "<strong>Stand with feet hip-width apart.</strong> Start by gently bouncing on your knees, then let the shake move up through your body. Shake out your arms, shoulders, and head. Let any tension release. Continue for 2 minutes, allowing the movement to be wild and free."
+            },
+            {
+                title: "Butterfly Tapping",
+                instruction: "<strong>Cross your arms over your chest</strong>, placing each hand on the opposite shoulder. Begin tapping alternately—left hand, right hand, left hand, right hand. Find a gentle rhythm. Breathe deeply as you tap. This bilateral stimulation calms your nervous system."
+            },
+            {
+                title: "5-Point Tapping",
+                instruction: "<strong>Tap gently on these 5 points in order:</strong> Top of your head, between your eyebrows, under your nose, on your chin, on your collarbone. Repeat this sequence 3-5 times. Breathe naturally as you tap each point."
+            },
+            {
+                title: "Deep Breathing",
+                instruction: "<strong>Place one hand on your chest, one on your belly.</strong> Breathe in slowly through your nose for 4 counts, feeling your belly expand. Hold for 2 counts. Exhale slowly through your mouth for 6 counts. Repeat for 2 minutes."
+            },
+            {
+                title: "Belly Breathing",
+                instruction: "<strong>Lie down or sit comfortably.</strong> Place your hand on your lower belly. Breathe deeply, focusing on expanding your belly (not your chest). Your hand should rise as you inhale. Exhale slowly, feeling your belly fall. Continue for 2 minutes."
+            },
+            {
+                title: "Box Breathing",
+                instruction: "<strong>Visualize a box.</strong> Breathe in for 4 counts (first side), hold for 4 counts (second side), exhale for 4 counts (third side), hold empty for 4 counts (fourth side). Repeat this square pattern for 2 minutes."
+            },
+            {
+                title: "Lion's Breath",
+                instruction: "<strong>Sit comfortably, take a deep breath in.</strong> Open your mouth wide, stick out your tongue toward your chin, and exhale forcefully with a 'ha' sound. Let your face scrunch up. Repeat 5-10 times. This releases tension in your face and jaw."
+            },
+            {
+                title: "Vagal Hum",
+                instruction: "<strong>Sit up tall, take a deep breath in.</strong> As you exhale, hum deeply—feel the vibration in your chest and throat. Make it as long as your exhale allows. The vibration stimulates your vagus nerve. Repeat for 2 minutes."
+            },
+            {
+                title: "Throat Chant",
+                instruction: "<strong>Sit comfortably, place a hand on your throat.</strong> Take a breath in, then chant 'OM' or 'AHH' as you exhale. Feel the vibration under your hand. Let the sound be deep and resonant. Repeat for 2 minutes."
+            },
+            {
+                title: "Gargling Reset",
+                instruction: "<strong>Get a glass of water.</strong> Take a sip and tilt your head back slightly. Gargle for 10-15 seconds, making the sound as deep as possible. Swallow or spit. Repeat 5-8 times over 2 minutes. This activates your vagus nerve."
+            },
+            {
+                title: "Body Scan",
+                instruction: "<strong>Lie down or sit comfortably.</strong> Close your eyes. Starting at your toes, bring awareness to each body part, moving slowly upward. Notice any tension without judgment. Breathe into tight areas. Work your way up to the crown of your head."
+            },
+            {
+                title: "Cold Water Reset",
+                instruction: "<strong>Fill a bowl with cold water.</strong> Take a deep breath in, then splash your face with the cold water or dip your face in for 10-15 seconds. Come up, breathe normally. Repeat 3-4 times. This activates your dive reflex and calms your system."
+            },
+            {
+                title: "Lymph Flow",
+                instruction: "<strong>Using light pressure, stroke your skin</strong> in these directions: Neck downward, armpits in circular motion, belly in clockwise circles, legs toward your heart. Use gentle, slow strokes. This supports your lymphatic system and feels soothing."
+            },
+            {
+                title: "Mindful Walking",
+                instruction: "<strong>Walk slowly, either indoors or outside.</strong> Pay attention to each step. Feel your foot lifting, moving through the air, and placing down. Notice the weight shifting. Breathe naturally. No destination—just the act of walking."
+            },
+            {
+                title: "Grounding",
+                instruction: "<strong>If possible, go barefoot on grass, dirt, or sand.</strong> Stand or walk slowly, feeling the earth beneath your feet. Notice the temperature and texture. If you can't go outside, press your bare feet firmly into the floor. Breathe and connect."
+            },
+            {
+                title: "Neck Release",
+                instruction: "<strong>Sit or stand tall.</strong> Gently tilt your head to the right, bringing your ear toward your shoulder. Hold for 30 seconds. Return to center. Tilt to the left, hold 30 seconds. Then look down, chin to chest, hold 30 seconds. Move slowly and breathe."
+            },
+            {
+                title: "Bilateral Tapping",
+                instruction: "<strong>Sit or stand comfortably.</strong> Alternately tap your left thigh with your left hand, then your right thigh with your right hand. Create a steady rhythm—left, right, left, right. Continue for 2 minutes. This bilateral movement is calming."
+            },
+            {
+                title: "Chest Opening",
+                instruction: "<strong>Stand or sit tall.</strong> Clasp your hands behind your back, straighten your arms, and lift them slightly. Open your chest forward, letting your shoulder blades squeeze together. Hold for 30 seconds. Release and repeat 3-4 times. Breathe deeply."
+            },
+            {
+                title: "Spinal Twist",
+                instruction: "<strong>Sit in a chair, feet flat on the floor.</strong> Place your right hand on your left knee, left hand behind you. Gently twist to the left, looking over your left shoulder. Hold for 30 seconds, breathing deeply. Return to center. Repeat on the right side."
+            },
+            {
+                title: "Gentle Bouncing",
+                instruction: "<strong>Stand with feet hip-width apart, knees slightly bent.</strong> Begin a gentle bounce—just letting your heels lift slightly and land softly. Keep it easy and rhythmic. Let your arms hang loose or swing gently. Continue for 2 minutes. Playful and regulating."
+            }
+        ];
+
+        let currentCard = null;
+        let isDrawing = false;
+
+        function drawCard() {
+            if (isDrawing) return;
+            
+            isDrawing = true;
+            const button = document.getElementById('drawButton');
+            const display = document.getElementById('cardDisplay');
+            
+            button.disabled = true;
+            button.textContent = 'Drawing...';
+            display.classList.add('drawing');
+            
+            setTimeout(() => {
+                const randomIndex = Math.floor(Math.random() * cards.length);
+                currentCard = cards[randomIndex];
+                
+                display.classList.remove('drawing');
+                display.innerHTML = `
+                    <div class="card-category">2-Minute Practice</div>
+                    <div class="card-title">${currentCard.title}</div>
+                    <div class="divider"></div>
+                    <div class="card-instruction">${currentCard.instruction}</div>
+                `;
+                
+                button.textContent = 'Draw Another';
+                button.disabled = false;
+                isDrawing = false;
+            }, 700);
+        }
+    </script>
+</body>
+</html>
