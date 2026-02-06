@@ -9,9 +9,28 @@
     <meta property="og:description" content="A 2-minute nervous system reset. Draw a card, do the practice.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://cards.tryemotion.com">
+    
+    <!-- Meta Pixel Code -->
+    <script>
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '400820300270716');
+    fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+    src="https://www.facebook.com/tr?id=400820300270716&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Cormorant+Garamond:ital,wght@1,400;1,500&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -27,6 +46,7 @@
             justify-content: center;
             align-items: center;
             padding: 20px;
+            padding-bottom: 100px;
         }
 
         .container {
@@ -116,6 +136,29 @@
             font-weight: 600;
         }
 
+        .save-card-link {
+            margin-top: 20px;
+            padding-top: 16px;
+            border-top: 1px solid #E8E4DB;
+            font-size: 12px;
+            color: #aaa;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .save-card-link span {
+            color: #C4907E;
+            text-decoration: underline;
+        }
+
+        .save-card-link:hover {
+            color: #888;
+        }
+
+        .save-card-link:hover span {
+            color: #B8846F;
+        }
+
         .draw-button {
             background: #C4907E;
             color: white;
@@ -172,9 +215,205 @@
             margin: 0 auto 24px;
         }
 
+        /* Modal Styles */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal {
+            background: #F5F1E8;
+            border-radius: 24px;
+            padding: 40px 32px;
+            max-width: 420px;
+            width: 100%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-style: italic;
+            font-size: 28px;
+            font-weight: 500;
+            color: #C4907E;
+            margin-bottom: 16px;
+        }
+
+        .modal-text {
+            font-size: 15px;
+            color: #4A4A4A;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .modal-form input[type="email"] {
+            padding: 16px 20px;
+            font-size: 15px;
+            border: 1px solid #E8E4DB;
+            border-radius: 12px;
+            background: white;
+            font-family: 'DM Sans', sans-serif;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .modal-form input[type="email"]:focus {
+            border-color: #C4907E;
+        }
+
+        .modal-form input[type="email"]::placeholder {
+            color: #aaa;
+        }
+
+        .modal-submit {
+            background: #C4907E;
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            font-size: 13px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .modal-submit:hover {
+            background: #B8846F;
+        }
+
+        .modal-submit:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .modal-dismiss {
+            background: none;
+            border: none;
+            color: #aaa;
+            font-size: 13px;
+            cursor: pointer;
+            margin-top: 16px;
+            font-family: 'DM Sans', sans-serif;
+            transition: color 0.2s ease;
+        }
+
+        .modal-dismiss:hover {
+            color: #4A4A4A;
+        }
+
+        .modal-subtext {
+            font-size: 12px;
+            color: #aaa;
+            margin-top: 8px;
+        }
+
+        /* Success state */
+        .modal-success {
+            display: none;
+        }
+
+        .modal-success.active {
+            display: block;
+        }
+
+        .modal-form-container.hidden {
+            display: none;
+        }
+
+        .success-icon {
+            font-size: 48px;
+            margin-bottom: 16px;
+        }
+
+        /* Footer CTA Bar */
+        .footer-cta {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: white;
+            padding: 16px 20px;
+            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.08);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 16px;
+            z-index: 100;
+        }
+
+        .footer-cta-text {
+            font-size: 13px;
+            color: #4A4A4A;
+        }
+
+        .footer-cta-text strong {
+            color: #C4907E;
+        }
+
+        .footer-cta-button {
+            background: #C4907E;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 11px;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-family: 'DM Sans', sans-serif;
+            white-space: nowrap;
+        }
+
+        .footer-cta-button:hover {
+            background: #B8846F;
+        }
+
+        .footer-cta.hidden {
+            display: none;
+        }
+
         @media (max-width: 600px) {
             body {
                 padding: 16px;
+                padding-bottom: 90px;
             }
 
             .logo img {
@@ -211,6 +450,29 @@
                 font-size: 10px;
                 letter-spacing: 3px;
             }
+
+            .modal {
+                padding: 32px 24px;
+                border-radius: 20px;
+            }
+
+            .modal-title {
+                font-size: 24px;
+            }
+
+            .modal-text {
+                font-size: 14px;
+            }
+
+            .footer-cta {
+                flex-direction: column;
+                gap: 10px;
+                padding: 14px 20px;
+            }
+
+            .footer-cta-text {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -236,6 +498,64 @@
         <div class="footer">
             <a href="https://tryemotion.com" target="_blank">tryemotion.com</a>
         </div>
+    </div>
+
+    <!-- Email Capture Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-form-container" id="modalFormContainer">
+                <div class="modal-title">Feel that satisfying shift?</div>
+                <div class="modal-text">
+                    The full e·motion system pairs these reset cards with a 90-day guided journal. Everything you need for a morning routine that actually sticks.
+                </div>
+                <form class="modal-form" id="emailForm">
+                    <input type="email" name="email" placeholder="Enter your email" required id="emailInput">
+                    <button type="submit" class="modal-submit" id="submitButton">Get 20% Off at Launch →</button>
+                </form>
+                <p class="modal-subtext">Launching March 2026. No spam, unsubscribe anytime.</p>
+                <button class="modal-dismiss" onclick="dismissModal()">No thanks, I'll keep exploring</button>
+            </div>
+            <div class="modal-success" id="modalSuccess">
+                <div class="success-icon">✨</div>
+                <div class="modal-title">You're on the list!</div>
+                <div class="modal-text">
+                    We'll let you know when e·motion launches—with your 20% discount waiting.
+                </div>
+                <button class="modal-submit" onclick="closeModal()" style="margin-top: 8px;">Keep Drawing Cards</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Save Card Modal -->
+    <div class="modal-overlay" id="saveModalOverlay">
+        <div class="modal">
+            <div class="modal-form-container" id="saveModalFormContainer">
+                <div class="modal-title">Save this reset</div>
+                <div class="modal-text" id="saveModalCardName">
+                    We'll email you this card so you can come back to it later.
+                </div>
+                <form class="modal-form" id="saveEmailForm">
+                    <input type="email" name="email" placeholder="Enter your email" required id="saveEmailInput">
+                    <button type="submit" class="modal-submit" id="saveSubmitButton">Send to My Inbox →</button>
+                </form>
+                <p class="modal-subtext">We'll also let you know when the full system launches.</p>
+                <button class="modal-dismiss" onclick="closeSaveModal()">Cancel</button>
+            </div>
+            <div class="modal-success" id="saveModalSuccess">
+                <div class="success-icon">📧</div>
+                <div class="modal-title">Card saved!</div>
+                <div class="modal-text">
+                    Check your inbox. And when you're ready to do the reset, we'll be here.
+                </div>
+                <button class="modal-submit" onclick="closeSaveModal()" style="margin-top: 8px;">Got It</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer CTA Bar -->
+    <div class="footer-cta" id="footerCta">
+        <span class="footer-cta-text">This is just 1 of 20 reset cards</span>
+        <button class="footer-cta-button" onclick="openModal()">See the Full System →</button>
     </div>
 
     <script>
@@ -324,9 +644,36 @@
 
         let currentCard = null;
         let isDrawing = false;
+        
+        // Session-based card count (resets each visit)
+        let sessionCardDrawCount = 0;
+        
+        // Persistent: only track if they've submitted email (survives sessions)
+        let hasSubmittedEmail = localStorage.getItem('emotionEmailSubmitted') === 'true';
+        let hasSeenModalThisSession = false;
+        
+        // Timer for modal delay
+        let modalTimer = null;
+
+        // Hide footer CTA if already submitted email
+        function updateFooterCta() {
+            const footerCta = document.getElementById('footerCta');
+            if (hasSubmittedEmail) {
+                footerCta.classList.add('hidden');
+            }
+        }
+
+        // Initialize on page load
+        updateFooterCta();
 
         function drawCard() {
             if (isDrawing) return;
+            
+            // Cancel any pending modal timer (they're still actively drawing)
+            if (modalTimer) {
+                clearTimeout(modalTimer);
+                modalTimer = null;
+            }
             
             isDrawing = true;
             const button = document.getElementById('drawButton');
@@ -346,13 +693,193 @@
                     <div class="card-title">${currentCard.title}</div>
                     <div class="divider"></div>
                     <div class="card-instruction">${currentCard.instruction}</div>
+                    <div class="save-card-link" onclick="openSaveModal()">Can't do this now? <span>Save for later →</span></div>
                 `;
                 
                 button.textContent = 'Draw Another';
                 button.disabled = false;
                 isDrawing = false;
+
+                // Increment session card draw count
+                sessionCardDrawCount++;
+
+                // After 2+ cards drawn, set a 10-second timer for modal
+                // Timer resets if they draw another card (meaning they're still exploring)
+                // This gives them time to actually do the reset before we interrupt
+                if (sessionCardDrawCount >= 2 && !hasSubmittedEmail && !hasSeenModalThisSession) {
+                    modalTimer = setTimeout(() => {
+                        openModal();
+                        hasSeenModalThisSession = true;
+                        modalTimer = null;
+                    }, 10000); // 10 seconds - enough time to do or read the reset
+                }
             }, 700);
         }
+
+        function openModal() {
+            if (hasSubmittedEmail) return; // Don't show if already submitted
+            document.getElementById('modalOverlay').classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('modalOverlay').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function dismissModal() {
+            closeModal();
+            hasSeenModalThisSession = true;
+        }
+
+        // Close modal when clicking overlay (not modal content)
+        document.getElementById('modalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                dismissModal();
+            }
+        });
+
+        // Save modal functions
+        function openSaveModal() {
+            if (hasSubmittedEmail) {
+                // Already have their email, just show a message
+                alert('This card is already saved! Check your inbox or screenshot it.');
+                return;
+            }
+            document.getElementById('saveModalOverlay').classList.add('active');
+            document.getElementById('saveModalCardName').textContent = `We'll email you "${currentCard.title}" so you can come back to it later.`;
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeSaveModal() {
+            document.getElementById('saveModalOverlay').classList.remove('active');
+            document.getElementById('saveModalFormContainer').classList.remove('hidden');
+            document.getElementById('saveModalSuccess').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Close save modal when clicking overlay
+        document.getElementById('saveModalOverlay').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeSaveModal();
+            }
+        });
+
+        // Save form submission
+        document.getElementById('saveEmailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('saveEmailInput').value;
+            const submitButton = document.getElementById('saveSubmitButton');
+            
+            submitButton.disabled = true;
+            submitButton.textContent = 'Sending...';
+
+            fetch('https://formspree.io/f/maqjarep', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json' 
+                },
+                body: JSON.stringify({ 
+                    email: email,
+                    source: 'cards_app_save',
+                    saved_card: currentCard.title,
+                    cards_drawn: sessionCardDrawCount
+                })
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    // Fire Meta Pixel Lead event
+                    if (typeof fbq !== 'undefined') {
+                        fbq('track', 'Lead', {
+                            content_name: 'cards_app_save_card',
+                            saved_card: currentCard.title
+                        });
+                    }
+                    
+                    // Mark as submitted
+                    hasSubmittedEmail = true;
+                    localStorage.setItem('emotionEmailSubmitted', 'true');
+                    
+                    // Show success state
+                    document.getElementById('saveModalFormContainer').classList.add('hidden');
+                    document.getElementById('saveModalSuccess').classList.add('active');
+                    
+                    // Hide footer CTA and prevent main modal
+                    updateFooterCta();
+                    hasSeenModalThisSession = true;
+                    if (modalTimer) {
+                        clearTimeout(modalTimer);
+                        modalTimer = null;
+                    }
+                } else {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Send to My Inbox →';
+                    alert('Something went wrong. Please try again.');
+                }
+            })
+            .catch(function() {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Send to My Inbox →';
+                alert('Something went wrong. Please try again.');
+            });
+        });
+
+        // Form submission
+        document.getElementById('emailForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const email = document.getElementById('emailInput').value;
+            const submitButton = document.getElementById('submitButton');
+            
+            submitButton.disabled = true;
+            submitButton.textContent = 'Joining...';
+
+            fetch('https://formspree.io/f/maqjarep', {
+                method: 'POST',
+                headers: { 
+                    'Content-Type': 'application/json', 
+                    'Accept': 'application/json' 
+                },
+                body: JSON.stringify({ 
+                    email: email,
+                    source: 'cards_app',
+                    cards_drawn: sessionCardDrawCount
+                })
+            })
+            .then(function(response) {
+                if (response.ok) {
+                    // Fire Meta Pixel Lead event
+                    if (typeof fbq !== 'undefined') {
+                        fbq('track', 'Lead', {
+                            content_name: 'cards_app_signup',
+                            cards_drawn: sessionCardDrawCount
+                        });
+                    }
+                    
+                    // Mark as submitted
+                    hasSubmittedEmail = true;
+                    localStorage.setItem('emotionEmailSubmitted', 'true');
+                    
+                    // Show success state
+                    document.getElementById('modalFormContainer').classList.add('hidden');
+                    document.getElementById('modalSuccess').classList.add('active');
+                    
+                    // Hide footer CTA
+                    updateFooterCta();
+                } else {
+                    submitButton.disabled = false;
+                    submitButton.textContent = 'Get 20% Off at Launch →';
+                    alert('Something went wrong. Please try again.');
+                }
+            })
+            .catch(function() {
+                submitButton.disabled = false;
+                submitButton.textContent = 'Get 20% Off at Launch →';
+                alert('Something went wrong. Please try again.');
+            });
+        });
     </script>
 </body>
 </html>
